@@ -112,7 +112,11 @@ ingress:
 
 # Allow configuration of lifecycle hooks
 # ref: https://kubernetes.io/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/
-lifecycle: {}
+lifecycle:
+  postStartCommand:
+    - /bin/sh
+    - -c
+    - cp /usr/src/nextcloud/version.php /var/www/html/version.php
 # lifecycle:
 #   postStartCommand: []
 #   preStopCommand: []
@@ -832,7 +836,7 @@ readinessProbe:
   failureThreshold: 3
   successThreshold: 1
 startupProbe:
-  enabled: false
+  enabled: true
   initialDelaySeconds: 30
   periodSeconds: 10
   timeoutSeconds: 5
